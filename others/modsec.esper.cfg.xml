@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><esper-configuration>
+  <plugin-loader name="EsperIOHTTPAdapter" 
+      class-name="com.espertech.esperio.http.EsperIOHTTPAdapterPlugin">
+    <config-xml>    <esperio-socket-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.espertech.com/schema/esperio-socket" xsi:noNamespaceSchemaLocation="esperio-socket-configuration-6-0.xsd">    <socket name="PersonEvent" port="8079" data="property_ordered_csv" stream="PersonEvent" propertyOrder="name,age"/>    </esperio-socket-configuration>	    <esperio-http-configuration>  <service name="myservice" port="8080" nio="false"/>  <get service="myservice" pattern="*"/></esperio-http-configuration>
+    </config-xml>
+  </plugin-loader>
+</esper-configuration>
+
