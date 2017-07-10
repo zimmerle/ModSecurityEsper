@@ -11,8 +11,8 @@ public class SiteScannerNiktoListener implements UpdateListener {
 
 	public SiteScannerNiktoListener() {
         String expression = ""
-        		+ "select a.request_uri from "
-        		+ "pattern[a=ModSecurityAuditLogEvent(request_uri='index') -> b=ModSecurityAuditLogEvent(request_uri='index2')]";
+            + "select * from "
+            + "pattern[a=ModSecurityAuditLogEvent(request_uri='/MbDEbYj1.vts') -> b=ModSecurityAuditLogEvent(request_uri='MbDEbYj1.nl')]";
 
         EPStatement statement = EsperHttpInputAdapter.epService.getEPAdministrator().createEPL(expression);
         statement.addListener(this);
