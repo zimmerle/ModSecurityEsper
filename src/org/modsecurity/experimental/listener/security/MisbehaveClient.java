@@ -1,0 +1,49 @@
+package org.modsecurity.experimental.listener.security;
+
+import org.modsecurity.experimental.input.EsperHttpInputAdapter;
+
+import com.espertech.esper.client.EPStatement;
+import com.espertech.esper.client.EventBean;
+import com.espertech.esper.client.UpdateListener;
+import com.espertech.esper.event.map.MapEventBean;
+
+public class MisbehaveClient implements UpdateListener {
+
+	public MisbehaveClient() {
+        String expression = ""
+            + "select * from "
+            + "pattern[a=ModSecurityAuditLogEvent(response_http_code != '200') -> b=ModSecurityAuditLogEvent(response_http_code != '200', client_ip = a.client_ip)]";
+
+        EPStatement statement = EsperHttpInputAdapter.epService.getEPAdministrator().createEPL(expression);
+        statement.addListener(this);
+	}
+
+	public void update(EventBean[] newEvents, EventBean[] oldEvents) {
+		int ne = 0;
+		int oe = 0;
+		try {
+			ne = newEvents.length;
+		} catch (Exception e) {
+		}
+		
+		try {
+			ne = oldEvents.length;
+		} catch (Exception e) {
+		}
+
+		try {
+			System.out.println("There is this customer who is behaving badly: ");
+			System.out.println("  `- new events: " + ne);
+			for (int i = 0; i < ne; i++) {
+				MapEventBean me = (MapEventBean) newEvents[i];
+				System.out.println("  " + me.getProperties());
+			}
+			System.out.println("  `- old events: " + oe);
+			for (int i = 0; i < oe; i++) {
+				System.out.println("  " + oldEvents[i]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
