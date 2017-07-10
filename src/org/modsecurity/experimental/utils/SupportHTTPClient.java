@@ -1,4 +1,4 @@
-package org.modsecurity.experimental.support;
+package org.modsecurity.experimental.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
