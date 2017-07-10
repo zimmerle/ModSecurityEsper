@@ -7,6 +7,8 @@ from pprint import pprint
 import urllib2
 from urllib import urlencode
 import base64
+import time
+from time import sleep
 
 
 HTTP_URL = "localhost"
@@ -19,8 +21,6 @@ class Dictlist(dict):
         except KeyError:
             super(Dictlist, self).__setitem__(key, [])
         self[key].append(value)
-
-
 
 def flatten_json(y):
     out = Dictlist()
@@ -42,12 +42,6 @@ def flatten_json(y):
 
 
 def send_data(data, plain):
-#    z = flatten_json(data['transaction'])
-#    z = ""
-#    z = urlencode(z)
-#    a = base64.b64encode(data)
-#        + "source=" + a
-
     things = ['time_stamp', 'client_ip', 'server_id',
         'host_port', 'host_ip', 'id']
 
@@ -90,6 +84,15 @@ def read_json_from_file(z):
 
 
 def main(p):
+    i = 0
+    ts = time.time()
+
+    delay = 0
+    try:
+        delay = int(sys.argv[2])
+    except:
+        pass
+
     for root, dirs, files in os.walk(p):
         path = root.split(os.sep)
         for file in files:
@@ -97,7 +100,16 @@ def main(p):
             file = os.path.join(str(d), file)
             d, p = read_json_from_file(file)
             if d != None:
+                i = i + 1
                 send_data(d, p)
+            sleep(delay)
+
+    ts_delta = time.time() - ts
+
+    print "Sent      : " + str(i) + " requests."
+    print "Total time: " + str(ts_delta) + " seconds."
+    print "reqs/sec  : " + str(i/ts_delta) + " requests per second."
+    print "forced del: " + str(delay) + " between the requests."
 
 
 if __name__ == "__main__":
