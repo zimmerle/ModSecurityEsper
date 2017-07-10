@@ -3,12 +3,6 @@ package org.modsecurity.experimental.input;
 
 import java.util.Properties;
 
-import org.modsecurity.experimental.listener.LiveListerner;
-import org.modsecurity.experimental.listener.ModSecurityAuditLogListener;
-import org.modsecurity.experimental.listener.QuitListerner;
-import org.modsecurity.experimental.listener.security.SiteScannerListener;
-import org.modsecurity.experimental.listener.security.SiteScannerNiktoListener;
-
 import com.espertech.esper.client.Configuration;
 import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
@@ -31,12 +25,6 @@ public class EsperHttpInputAdapter {
 
         config.addEventTypeAutoName("org.modsecurity.experimental.event");
         epService = EPServiceProviderManager.getDefaultProvider(config);
-        
-        new LiveListerner();
-        new ModSecurityAuditLogListener();
-        new QuitListerner();
-        new SiteScannerNiktoListener();
-        new SiteScannerListener();
     }
 
     public void destroy() {
