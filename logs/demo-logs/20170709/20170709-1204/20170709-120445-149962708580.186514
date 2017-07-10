@@ -1,0 +1,87 @@
+{
+    "transaction": {
+        "client_ip": "127.0.0.1",
+        "time_stamp": "Sun Jul  9 12:04:45 2017",
+        "server_id": "0",
+        "client_port": 37186,
+        "host_ip": "127.0.0.1",
+        "host_port": 80,
+        "id": "149962708580.186514",
+        "request": {
+            "protocol": "GET",
+            "http_version": 1.1,
+            "uri": "/cgi-sys/wwwwais",
+            "headers": {
+                "REQUEST_HEADERS:User-Agent": "Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:000946)",
+                "REQUEST_HEADERS:Host": "localhost",
+                "REQUEST_HEADERS:Connection": "Keep-Alive"
+            }
+        },
+        "response": {
+            "http_code": 404,
+            "headers": {
+                "RESPONSE_HEADERS:Server": "nginx/1.11.3",
+                "RESPONSE_HEADERS:Date": "Sun, 09 Jul 2017 19:04:45 GMT",
+                "RESPONSE_HEADERS:Content-Length": "169",
+                "RESPONSE_HEADERS:Content-Type": "text/html",
+                "RESPONSE_HEADERS:Connection": "keep-alive"
+            }
+        },
+        "producer": {
+            "modsecurity": "ModSecurity v3.0.0-alpha (Linux)",
+            "connector": "ModSecurity-nginx v0.1.1-beta",
+            "secrules_engine": "DetectionOnly",
+            "components": [
+                "OWASP_CRS/3.0.0\""
+            ]
+        },
+        "messages": [
+            {
+                "message": "Found User-Agent associated with security scanner",
+                "producer": {
+                    "match": "Operator `@pmfromfile' with parameter `scanners-user-agents.data' against variable `REQUEST_HEADERS:User-Agent' (Value: `Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:000946)' )",
+                    "ruleId": "913100",
+                    "file": "/home/zimmerle/core/ModSecurity/test/benchmark/owasp-v3/rules/REQUEST-913-SCANNER-DETECTION.conf",
+                    "lineNumber": "17",
+                    "data": "",
+                    "severity": "2",
+                    "ver": "OWASP_CRS/3.0.0",
+                    "rev": "2",
+                    "tags": [
+                        "application-multi",
+                        "language-multi",
+                        "platform-multi",
+                        "attack-reputation-scanner",
+                        "OWASP_CRS/AUTOMATION/SECURITY_SCANNER",
+                        "WASCTC/WASC-21",
+                        "OWASP_TOP_10/A7",
+                        "PCI/6.5.10"
+                    ],
+                    "maturity": "9",
+                    "accuracy": "9"
+                }
+            },
+            {
+                "message": "Inbound Anomaly Score Exceeded (Total Score: 5)",
+                "producer": {
+                    "match": "Operator `@ge' with parameter `%{tx.inbound_anomaly_score_threshold}' against variable `TX:ANOMALY_SCORE' (Value: `5' )",
+                    "ruleId": "949110",
+                    "file": "/home/zimmerle/core/ModSecurity/test/benchmark/owasp-v3/rules/REQUEST-949-BLOCKING-EVALUATION.conf",
+                    "lineNumber": "38",
+                    "data": "",
+                    "severity": "2",
+                    "ver": "",
+                    "rev": "",
+                    "tags": [
+                        "application-multi",
+                        "language-multi",
+                        "platform-multi",
+                        "attack-generic"
+                    ],
+                    "maturity": "0",
+                    "accuracy": "0"
+                }
+            }
+        ]
+    }
+}

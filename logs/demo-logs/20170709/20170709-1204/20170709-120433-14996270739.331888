@@ -1,0 +1,168 @@
+{
+    "transaction": {
+        "client_ip": "127.0.0.1",
+        "time_stamp": "Sun Jul  9 12:04:33 2017",
+        "server_id": "0",
+        "client_port": 37170,
+        "host_ip": "127.0.0.1",
+        "host_port": 80,
+        "id": "14996270739.331888",
+        "request": {
+            "protocol": "GET",
+            "http_version": 1.1,
+            "uri": "/htbin/FormMail.cgi?<script>alert(\\\"Vulnerable\\\");</script>",
+            "headers": {
+                "REQUEST_HEADERS:Host": "localhost",
+                "REQUEST_HEADERS:Connection": "Keep-Alive",
+                "REQUEST_HEADERS:User-Agent": "Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:000755)"
+            }
+        },
+        "response": {
+            "http_code": 404,
+            "headers": {
+                "RESPONSE_HEADERS:Server": "nginx/1.11.3",
+                "RESPONSE_HEADERS:Date": "Sun, 09 Jul 2017 19:04:33 GMT",
+                "RESPONSE_HEADERS:Content-Length": "169",
+                "RESPONSE_HEADERS:Content-Type": "text/html",
+                "RESPONSE_HEADERS:Connection": "keep-alive"
+            }
+        },
+        "producer": {
+            "modsecurity": "ModSecurity v3.0.0-alpha (Linux)",
+            "connector": "ModSecurity-nginx v0.1.1-beta",
+            "secrules_engine": "DetectionOnly",
+            "components": [
+                "OWASP_CRS/3.0.0\""
+            ]
+        },
+        "messages": [
+            {
+                "message": "Found User-Agent associated with security scanner",
+                "producer": {
+                    "match": "Operator `@pmfromfile' with parameter `scanners-user-agents.data' against variable `REQUEST_HEADERS:User-Agent' (Value: `Mozilla/5.00 (Nikto/2.1.5) (Evasions:None) (Test:000755)' )",
+                    "ruleId": "913100",
+                    "file": "/home/zimmerle/core/ModSecurity/test/benchmark/owasp-v3/rules/REQUEST-913-SCANNER-DETECTION.conf",
+                    "lineNumber": "17",
+                    "data": "",
+                    "severity": "2",
+                    "ver": "OWASP_CRS/3.0.0",
+                    "rev": "2",
+                    "tags": [
+                        "application-multi",
+                        "language-multi",
+                        "platform-multi",
+                        "attack-reputation-scanner",
+                        "OWASP_CRS/AUTOMATION/SECURITY_SCANNER",
+                        "WASCTC/WASC-21",
+                        "OWASP_TOP_10/A7",
+                        "PCI/6.5.10"
+                    ],
+                    "maturity": "9",
+                    "accuracy": "9"
+                }
+            },
+            {
+                "message": "XSS Attack Detected via libinjection",
+                "producer": {
+                    "match": "Operator `@detectxss' with parameter `' against variable `ARGS_NAMES' (Value: `<script>alert(\"Vulnerable\");</script>' )",
+                    "ruleId": "941100",
+                    "file": "/home/zimmerle/core/ModSecurity/test/benchmark/owasp-v3/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf",
+                    "lineNumber": "17",
+                    "data": "",
+                    "severity": "2",
+                    "ver": "OWASP_CRS/3.0.0",
+                    "rev": "2",
+                    "tags": [
+                        "application-multi",
+                        "language-multi",
+                        "platform-multi",
+                        "attack-xss",
+                        "OWASP_CRS/WEB_ATTACK/XSS",
+                        "WASCTC/WASC-8",
+                        "WASCTC/WASC-22",
+                        "OWASP_TOP_10/A3",
+                        "OWASP_AppSensor/IE1",
+                        "CAPEC-242"
+                    ],
+                    "maturity": "1",
+                    "accuracy": "9"
+                }
+            },
+            {
+                "message": "XSS Filter - Category 1: Script Tag Vector",
+                "producer": {
+                    "match": "Operator `@rx' with parameter `(?i)([<＜]script[^>＞]*[>＞][\\s\\S]*?)' against variable `ARGS_NAMES' (Value: `<script>alert(\"Vulnerable\");</script>' )",
+                    "ruleId": "941110",
+                    "file": "/home/zimmerle/core/ModSecurity/test/benchmark/owasp-v3/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf",
+                    "lineNumber": "56",
+                    "data": "",
+                    "severity": "2",
+                    "ver": "OWASP_CRS/3.0.0",
+                    "rev": "2",
+                    "tags": [
+                        "application-multi",
+                        "language-multi",
+                        "platform-multi",
+                        "attack-xss",
+                        "OWASP_CRS/WEB_ATTACK/XSS",
+                        "WASCTC/WASC-8",
+                        "WASCTC/WASC-22",
+                        "OWASP_TOP_10/A3",
+                        "OWASP_AppSensor/IE1",
+                        "CAPEC-242"
+                    ],
+                    "maturity": "4",
+                    "accuracy": "9"
+                }
+            },
+            {
+                "message": "NoScript XSS InjectionChecker: HTML Injection",
+                "producer": {
+                    "match": "Operator `@rx' with parameter `(?i)<[^\\w<>]*(?:[^<>\\\"'\\s]*:)?[^\\w<>]*(?:\\W*?s\\W*?c\\W*?r\\W*?i\\W*?p\\W*?t|\\W*?f\\W*?o\\W*?r\\W*?m|\\W*?s\\W*?t\\W*?y\\W*?l\\W*?e|\\W*?s\\W*?v\\W*?g|\\W*?m\\W*?a\\W*?r\\W*?q\\W*?u\\W*?e\\W*?e|(?:\\W*?l\\W*?i\\W*?n\\W*?k|\\W*?o\\W*?b\\W*?j\\W*?e\\W*?c\\W*?t|\\W*?e\\W*?m\\W*?b\\W*?e\\W*?d|\\W*?a\\W*?p\\W*?p\\W*?l\\W*?e\\W*?t|\\W*?p\\W*?a\\W*?r\\W*?a\\W*?m|\\W*?i?\\W*?f\\W*?r\\W*?a\\W*?m\\W*?e|\\W*?b\\W*?a\\W*?s\\W*?e|\\W*?b\\W*?o\\W*?d\\W*?y|\\W*?m\\W*?e\\W*?t\\W*?a|\\W*?i\\W*?m\\W*?a?\\W*?g\\W*?e?|\\W*?v\\W*?i\\W*?d\\W*?e\\W*?o|\\W*?a\\W*?u\\W*?d\\W*?i\\W*?o|\\W*?b\\W*?i\\W*?n\\W*?d\\W*?i\\W*?n\\W*?g\\W*?s|\\W*?s\\W*?e\\W*?t|\\W*?a\\W*?n\\W*?i\\W*?m\\W*?a\\W*?t\\W*?e)[^>\\w])|(?:<\\w[\\s\\S]*[\\s\\/]|['\\\"](?:[\\s\\S]*[\\s\\/])?)(?:formaction|style|background|src|lowsrc|ping|on(?:d(?:e(?:vice(?:(?:orienta|mo)tion|proximity|found|light)|livery(?:success|error)|activate)|r(?:ag(?:e(?:n(?:ter|d)|xit)|(?:gestur|leav)e|start|drop|over)?|op)|i(?:s(?:c(?:hargingtimechange|onnect(?:ing|ed))|abled)|aling)|ata(?:setc(?:omplete|hanged)|(?:availabl|chang)e|error)|urationchange|ownloading|blclick)|Moz(?:M(?:agnifyGesture(?:Update|Start)?|ouse(?:PixelScroll|Hittest))|S(?:wipeGesture(?:Update|Start|End)?|crolledAreaChanged)|(?:(?:Press)?TapGestur|BeforeResiz)e|EdgeUI(?:C(?:omplet|ancel)|Start)ed|RotateGesture(?:Update|Start)?|A(?:udioAvailable|fterPaint))|c(?:o(?:m(?:p(?:osition(?:update|start|end)|lete)|mand(?:update)?)|n(?:t(?:rolselect|extmenu)|nect(?:ing|ed))|py)|a(?:(?:llschang|ch)ed|nplay(?:through)?|rdstatechange)|h(?:(?:arging(?:time)?ch)?ange|ecking)|(?:fstate|ell)change|u(?:echange|t)|l(?:ick|ose))|m(?:o(?:z(?:pointerlock(?:change|error)|(?:orientation|time)change|fullscreen(?:change|error)|network(?:down|up)load)|use(?:(?:lea|mo)ve|o(?:ver|ut)|enter|wheel|down|up)|ve(?:start|end)?)|essage|ark)|s(?:t(?:a(?:t(?:uschanged|echange)|lled|rt)|k(?:sessione|comma)nd|op)|e(?:ek(?:complete|ing|ed)|(?:lec(?:tstar)?)?t|n(?:ding|t))|u(?:ccess|spend|bmit)|peech(?:start|end)|ound(?:start|end)|croll|how)|b(?:e(?:for(?:e(?:(?:scriptexecu|activa)te|u(?:nload|pdate)|p(?:aste|rint)|c(?:opy|ut)|editfocus)|deactivate)|gin(?:Event)?)|oun(?:dary|ce)|l(?:ocked|ur)|roadcast|usy)|a(?:n(?:imation(?:iteration|start|end)|tennastatechange)|fter(?:(?:scriptexecu|upda)te|print)|udio(?:process|start|end)|d(?:apteradded|dtrack)|ctivate|lerting|bort)|DOM(?:Node(?:Inserted(?:IntoDocument)?|Removed(?:FromDocument)?)|(?:CharacterData|Subtree)Modified|A(?:ttrModified|ctivate)|Focus(?:Out|In)|MouseScroll)|r(?:e(?:s(?:u(?:m(?:ing|e)|lt)|ize|et)|adystatechange|pea(?:tEven)?t|movetrack|trieving|ceived)|ow(?:s(?:inserted|delete)|e(?:nter|xit))|atechange)|p(?:op(?:up(?:hid(?:den|ing)|show(?:ing|n))|state)|a(?:ge(?:hide|show)|(?:st|us)e|int)|ro(?:pertychange|gress)|lay(?:ing)?)|t(?:ouch(?:(?:lea|mo)ve|en(?:ter|d)|cancel|start)|ime(?:update|out)|ransitionend|ext)|u(?:s(?:erproximity|sdreceived)|p(?:gradeneeded|dateready)|n(?:derflow|load))|f(?:o(?:rm(?:change|input)|cus(?:out|in)?)|i(?:lterchange|nish)|ailed)|l(?:o(?:ad(?:e(?:d(?:meta)?data|nd)|start)?|secapture)|evelchange|y)|g(?:amepad(?:(?:dis)?connected|button(?:down|up)|axismove)|et)|e(?:n(?:d(?:Event|ed)?|abled|ter)|rror(?:update)?|mptied|xit)|i(?:cc(?:cardlockerror|infochange)|n(?:coming|valid|put))|o(?:(?:(?:ff|n)lin|bsolet)e|verflow(?:changed)?|pen)|SVG(?:(?:Unl|L)oad|Resize|Scroll|Abort|Error|Zoom)|h(?:e(?:adphoneschange|l[dp])|ashchange|olding)|v(?:o(?:lum|ic)e|ersion)change|w(?:a(?:it|rn)ing|heel)|key(?:press|down|up)|(?:AppComman|Loa)d|no(?:update|match)|Request|zoom))[\\s\\x08]*?=' against variable `ARGS_NAMES' (Value: `<script>alert(\"Vulnerable\");</script>' )",
+                    "ruleId": "941160",
+                    "file": "/home/zimmerle/core/ModSecurity/test/benchmark/owasp-v3/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf",
+                    "lineNumber": "231",
+                    "data": "",
+                    "severity": "2",
+                    "ver": "OWASP_CRS/3.0.0",
+                    "rev": "2",
+                    "tags": [
+                        "application-multi",
+                        "language-multi",
+                        "platform-multi",
+                        "attack-xss",
+                        "OWASP_CRS/WEB_ATTACK/XSS",
+                        "WASCTC/WASC-8",
+                        "WASCTC/WASC-22",
+                        "OWASP_TOP_10/A3",
+                        "OWASP_AppSensor/IE1",
+                        "CAPEC-242"
+                    ],
+                    "maturity": "1",
+                    "accuracy": "8"
+                }
+            },
+            {
+                "message": "Inbound Anomaly Score Exceeded (Total Score: 20)",
+                "producer": {
+                    "match": "Operator `@ge' with parameter `%{tx.inbound_anomaly_score_threshold}' against variable `TX:ANOMALY_SCORE' (Value: `20' )",
+                    "ruleId": "949110",
+                    "file": "/home/zimmerle/core/ModSecurity/test/benchmark/owasp-v3/rules/REQUEST-949-BLOCKING-EVALUATION.conf",
+                    "lineNumber": "38",
+                    "data": "",
+                    "severity": "2",
+                    "ver": "",
+                    "rev": "",
+                    "tags": [
+                        "application-multi",
+                        "language-multi",
+                        "platform-multi",
+                        "attack-generic"
+                    ],
+                    "maturity": "0",
+                    "accuracy": "0"
+                }
+            }
+        ]
+    }
+}
